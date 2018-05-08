@@ -1,7 +1,7 @@
 # Questions
 
 ## What is pneumonoultramicroscopicsilicovolcanoconiosis?
-
+### the max length of a word in the dictionary: 45
 TODO
 
 ## According to its man page, what does `getrusage` do?
@@ -9,7 +9,7 @@ TODO
 TODO
 
 ## Per that same man page, how many members are in a variable of type `struct rusage`?
-
+### 2 structs 14 longs = 16
 TODO
 
 ## Why do you think we pass `before` and `after` by reference (instead of by value) to `calculate`, even though we're not changing their contents?
