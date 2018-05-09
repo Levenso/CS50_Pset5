@@ -38,6 +38,12 @@ bool load(const char *dictionary)
 unsigned int size(void)
 {
     // TODO
+    // I think...
+    count function(),
+    read word;
+    counter++;
+    return counter;
+
     return 0;
 }
 
