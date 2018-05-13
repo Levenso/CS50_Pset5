@@ -28,11 +28,11 @@
 node* head = NULL;
 node* cursor;
 //declare word counter var
-    unsigned int counter = 0;
+int counter = 0;
 
 //hash function
 //https://www.reddit.com/r/cs50/comments/1x6vc8/pset6_trie_vs_hashtable/
-    inline int hashValue(const char* word)
+    int hashValue(const char* word)
     {
     unsigned int hash = 0;
     for (int i=0, n=strlen(word); i<n; i++) {
@@ -54,7 +54,7 @@ node* cursor;
 bool check(const char* word)
 // bool check(const char *word)
 {
-int index;
+// int index;
     cursor = head;
     while (cursor != NULL)
     {
@@ -67,7 +67,7 @@ int index;
     {
         hashtable[i] = NULL;
     }
-if (strcasecmp(cursor, word) == 0)
+if (strcasecmp(cursor->word, word) == 0)
 //compare w strcasecmp
         cursor = cursor->next;
     }
@@ -85,7 +85,6 @@ bool load(const char* dictionary)
 
 //declare temp array for word
     char word[LENGTH + 1];
-    int index;
 
     for(int i = 0; i < HASHTABLE_SIZE; i++)
     {
@@ -108,7 +107,7 @@ bool load(const char* dictionary)
             {
                 strcpy(new_node->word, word);
                 //new_node->word has word to hash
-                index =  hashValue(word);
+                unsigned int index =  hashValue(word);
                 //new_node should point to whatever was previous in list
                 new_node->next = hashtable[index];
                 hashtable[index] = new_node;
@@ -121,7 +120,7 @@ bool load(const char* dictionary)
             //run hash function
             // if (hashValue(word)) == NULL)
 }
-
+// return counter;
         //if index is empty add word
 
     //     {
@@ -137,7 +136,7 @@ bool load(const char* dictionary)
 
 
 
-return 0;
+return true;
 }
 
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
@@ -148,9 +147,10 @@ unsigned int size(void)
     // count function(),
     // read word;
     // counter++;
+    printf("counter: %d\n", counter);
     return counter;
 
-    return 0;
+    // return 0;
 }
 
 // Unloads dictionary from memory, returning true if successful else false
