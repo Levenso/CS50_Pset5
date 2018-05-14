@@ -22,7 +22,7 @@
     node;
     // node* new_node = malloc(sizeof(node));
 
-    node* hashtable[HASHTABLE_SIZE] = {NULL};
+node* hashtable[HASHTABLE_SIZE] = {NULL};
 
 node *head = NULL;
 // node *cursor;
@@ -31,71 +31,45 @@ int counter = 0;
 
 //hash function
 //https://www.reddit.com/r/cs50/comments/1x6vc8/pset6_trie_vs_hashtable/
-    int hashValue(const char* word)
-    {
-    unsigned int hash = 0;
-    for (int i=0, n=strlen(word); i<n; i++) {
-        hash = (hash << 2) ^ word[i];
-    }
-    return hash % HASHTABLE_SIZE;
-    }
-
-// Returns true if word is in dictionary else
-//from doug video bool find(sllnode* head, VALUE  val);
-//(pointer to first element of linked list - global var,
-//data type that is inside node - what are you looking for 'word'?
+int hashValue(const char* word)
+{
+unsigned int hash = 0;
+for (int i=0, n=strlen(word); i<n; i++) {
+    hash = (hash << 2) ^ word[i];
+}
+return hash % HASHTABLE_SIZE;
+}
 
 bool check(const char* word)
 //passes in word from text to check for in dictionary
 
 {
-    // while (cursor != NULL)
+    unsigned int hash =  hashValue(word);
+    node *cursor = hashtable[hash];
+    // if(hashtable[hash] == NULL)
     // {
-        // char temp[strlen(word)];
-        // strcpy(temp, word);
-        // int j = 0;
-        // while (temp[j] != '\0')
-        // {
-        //     if (isupper(temp[j]))
-        //     {
-        //         temp[j] = tolower(temp[j]);
-        //     }
-        //     j++;
-        // }
-        // for (int j = 0; j < strlen(temp); j++)
-        // {
-        // tolower(temp[j]);
-        // }
+    // return false;
+    // }
 
-        unsigned int hash =  hashValue(word);
-        if(hashtable[hash] == NULL)
+    // else if(hashtable[hash] != NULL)
+    // {
+
+    //find bucket word is in
+    //compare strings on every node
+
+     while (cursor != NULL)
+     {
+        if ((strcasecmp(cursor->word, word)) == 0)
+
         {
-        return false;
+            return true;
         }
-
-        else if(hashtable[hash] != NULL)
+        else
         {
-        node *cursor = hashtable[hash];
-
-        //find bucket word is in
-        //compare strings on every node
-
-
-         while (cursor != NULL)
-         {
-         int i;
-            i = strcasecmp(cursor->word, word);
-            if (i == 0)
-            {
-
-                return true;
-            }
-            else
-            {
-                cursor = cursor->next;
-            }
+            cursor = cursor->next;
         }
-    }
+     }
+
 return false;
 }
 
@@ -117,48 +91,38 @@ bool load(const char* dictionary)
     // node* head = NULL;
     //read each word in dictionary till end of file
     while (fscanf(inptr, "%s ", word) !=EOF)
+    {
+        //create a node and allocate memory for each word
+        node *new_node = malloc(sizeof(node));
+
+        // memset(new_node, 0, sizeof(node));
+
+        //copy each word into node
+        if (new_node == NULL)
         {
-            //create a node and allocate memory for each word
-            node *new_node = malloc(sizeof(node));
+            unload();
+            //speller quits
+            return false;
+        }
+        else
+        {
+            strcpy(new_node->word, word);
+            new_node->next = NULL;
+            //new_node->word has word to hash
 
-            // memset(new_node, 0, sizeof(node));
+            //declare hashed index of word
+            unsigned int hash =  hashValue(word);
 
-            //copy each word into node
-            if (new_node == NULL)
-            {
-                unload();
-                //speller quits
-                return false;
-            }
-            else
-            {
-                strcpy(new_node->word, word);
-                //new_node->word has word to hash
+            //new_node should point to whatever was previous in list
+            // new_node->next = head;
+            // head = new_node;
+            new_node->next = hashtable[hash];
+            hashtable[hash] = new_node;
 
-                //declare hashed index of word
-                unsigned int hash =  hashValue(word);
-
-                //new_node should point to whatever was previous in list
-                // new_node->next = head;
-                // head = new_node;
-                new_node->next = hashtable[hash];
-                hashtable[hash] = new_node;
-
-                //increment counter for each word to return in SIZE
-                counter++;
-}
-        //if index is empty add word
-
-    //     {
-    // printf("yay");
-    //     }
-
-    //     else
-    //     {
-    // //if index is not empty add word to that index
-    // printf("no");
-    //     }
-            }
+            //increment counter for each word to return in SIZE
+            counter++;
+        }
+    }
 fclose(inptr);
 return true;
 }
@@ -179,13 +143,31 @@ bool unload(void)
     {
     node *cursor = hashtable[i];
 
-    while (cursor != NULL)
-    {
-        node *temp = cursor;
-        cursor = cursor->next;
-        free(temp);
-    }
+        while (cursor != NULL)
+        {
+            node *temp = cursor;
+            cursor = cursor->next;
+            free(temp);
+        }
 
     }
     return true;
 }
+
+//while (cursor != NULL)
+    // {
+        // char temp[strlen(word)];
+        // strcpy(temp, word);
+        // int j = 0;
+        // while (temp[j] != '\0')
+        // {
+        //     if (isupper(temp[j]))
+        //     {
+        //         temp[j] = tolower(temp[j]);
+        //     }
+        //     j++;
+        // }
+        // for (int j = 0; j < strlen(temp); j++)
+        // {
+        // tolower(temp[j]);
+        // }
