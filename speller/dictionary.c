@@ -16,11 +16,9 @@
     {
         char word[LENGTH + 1];
         struct wordnode *next;
-        // struct wordnode *next;
     }
 
     node;
-    // node* new_node = malloc(sizeof(node));
 
 node* hashtable[HASHTABLE_SIZE] = {NULL};
 
@@ -46,13 +44,6 @@ bool check(const char* word)
 {
     unsigned int hash =  hashValue(word);
     node *cursor = hashtable[hash];
-    // if(hashtable[hash] == NULL)
-    // {
-    // return false;
-    // }
-
-    // else if(hashtable[hash] != NULL)
-    // {
 
     //find bucket word is in
     //compare strings on every node
@@ -84,11 +75,6 @@ bool load(const char* dictionary)
 //declare temp array for word
     char word[LENGTH + 1];
 
-    // for(int i = 0; i < HASHTABLE_SIZE; i++)
-    // {
-    //     hashtable[i] = NULL;
-    // }
-    // node* head = NULL;
     //read each word in dictionary till end of file
     while (fscanf(inptr, "%s ", word) !=EOF)
     {
@@ -152,21 +138,3 @@ bool unload(void)
     }
     return true;
 }
-
-//while (cursor != NULL)
-    // {
-        // char temp[strlen(word)];
-        // strcpy(temp, word);
-        // int j = 0;
-        // while (temp[j] != '\0')
-        // {
-        //     if (isupper(temp[j]))
-        //     {
-        //         temp[j] = tolower(temp[j]);
-        //     }
-        //     j++;
-        // }
-        // for (int j = 0; j < strlen(temp); j++)
-        // {
-        // tolower(temp[j]);
-        // }

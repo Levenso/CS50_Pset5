@@ -2,15 +2,14 @@
 
 ## What is pneumonoultramicroscopicsilicovolcanoconiosis?
 ### the max length of a word in the dictionary: 45
-TODO
 
 ## According to its man page, what does `getrusage` do?
-
-TODO
+### returns resource usage measures for who, which can be for RUSAGE_SELF for the calling process, which is the sum of resources used by all threads in the process.
+### RUSAGE_CHILDREN for all children of the calling process that have terminated and been waited for.
+### RUSAGE_THREAD Return resource usage statistics for the calling thread.
 
 ## Per that same man page, how many members are in a variable of type `struct rusage`?
 ### 2 structs 14 longs = 16
-TODO
 
 ## Why do you think we pass `before` and `after` by reference (instead of by value) to `calculate`, even though we're not changing their contents?
 
