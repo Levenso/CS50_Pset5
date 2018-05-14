@@ -35,7 +35,7 @@ int hashValue(const char* word)
 {
 unsigned int hash = 0;
 for (int i=0, n=strlen(word); i<n; i++) {
-    hash = (hash << 2) ^ word[i];
+    hash = (hash << 2) ^ tolower(word[i]);
 }
 return hash % HASHTABLE_SIZE;
 }
@@ -130,7 +130,6 @@ return true;
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
 unsigned int size(void)
 {
-    printf("counter: %d\n", counter);
     return counter;
 
 }
